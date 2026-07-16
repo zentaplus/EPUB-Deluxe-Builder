@@ -1,0 +1,152 @@
+name: EPUB Deluxe Builder CI
+
+
+on:
+
+  push:
+
+    branches:
+
+      - main
+
+
+  pull_request:
+
+    branches:
+
+      - main
+
+
+
+jobs:
+
+
+  test:
+
+
+    name:
+      Run Tests
+
+
+    runs-on:
+      ubuntu-latest
+
+
+
+    steps:
+
+
+      - name:
+          Checkout repository
+
+        uses:
+          actions/checkout@v4
+
+
+
+      - name:
+          Setup Python
+
+        uses:
+          actions/setup-python@v5
+
+        with:
+
+          python-version:
+            "3.10"
+
+
+
+      - name:
+          Install dependencies
+
+        run:
+
+          pip install -r requirements.txt
+
+
+
+      - name:
+          Install package
+
+        run:
+
+          pip install .
+
+
+
+      - name:
+          Run tests
+
+        run:
+
+          pytest tests/
+
+
+
+  build:
+
+
+    name:
+      Build Package
+
+
+    needs:
+      test
+
+
+    runs-on:
+      ubuntu-latest
+
+
+
+    steps:
+
+
+      - name:
+          Checkout repository
+
+        uses:
+          actions/checkout@v4
+
+
+
+      - name:
+          Setup Python
+
+        uses:
+          actions/setup-python@v5
+
+        with:
+
+          python-version:
+            "3.10"
+
+
+
+      - name:
+          Build wheel
+
+        run:
+
+          python -m pip install build
+
+          python -m build
+
+
+
+      - name:
+          Upload package
+
+        uses:
+          actions/upload-artifact@v4
+
+        with:
+
+          name:
+            epub-deluxe-package
+
+
+          path:
+
+            dist/
