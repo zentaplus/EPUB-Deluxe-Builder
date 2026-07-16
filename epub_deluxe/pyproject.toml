@@ -1,0 +1,37 @@
+[build-system]
+
+requires = [
+    "setuptools>=61"
+]
+
+build-backend = 
+"setuptools.build_meta"
+
+
+
+[project]
+
+name = "epub-deluxe-builder"
+
+version = "1.0.0"
+
+description =
+"Professional EPUB 3 publishing engine"
+
+
+requires-python =
+">=3.10"
+
+
+dependencies = [
+
+    "Pillow>=10.0"
+
+]
+
+
+
+[project.scripts]
+
+epub-deluxe =
+"epub_deluxe.cli:main"
