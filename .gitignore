@@ -1,0 +1,42 @@
+# Python
+
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environment
+
+venv/
+.venv/
+
+# Build
+
+build/
+dist/
+
+*.spec
+
+# IDE
+
+.vscode/
+
+.idea/
+
+# Output
+
+output/
+
+*.epub
+
+*.log
+
+# Windows
+
+Thumbs.db
+
+desktop.ini
+
+# macOS
+
+.DS_Store
