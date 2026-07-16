@@ -1,0 +1,31 @@
+EPUB-Deluxe-Builder/
+
+├── README.md
+├── LICENSE
+├── requirements.txt
+├── build.bat
+├── main.py
+│
+├── core/
+│   ├── builder.py
+│   ├── chapter_parser.py
+│   ├── cleaner.py
+│   ├── cover.py
+│   ├── css.py
+│   ├── metadata.py
+│   ├── toc.py
+│   ├── utils.py
+│
+├── gui/
+│   ├── app.py
+│   ├── dialogs.py
+│   ├── widgets.py
+│
+├── resources/
+│   ├── icon.ico
+│   ├── default_cover.png
+│   └── style.css
+│
+├── tests/
+│
+└── output/
