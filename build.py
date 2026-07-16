@@ -2,138 +2,113 @@
 
 #!/usr/bin/env python3
 
-from pathlib import Path
 import argparse
 import sys
+from pathlib import Path
 
 
-from core.builder import EPUBBuilder
-from core.validator import EPUBValidator
-
-
-
-VERSION = "1.0.0"
+from core.pipeline import (
+    DeluxePipeline
+)
 
 
 
-def print_banner():
+VERSION = "2.0.0"
+
+
+
+def banner():
 
     print(
 r"""
-=================================
-     EPUB Deluxe Builder
-          v1.0.0
-=================================
+====================================
+
+        EPUB DELUXE BUILDER
+
+              v2.0.0
+
+====================================
 """
     )
 
 
 
-def build_epub(
-    project,
-    output,
-    validate=True
-):
+def run_build(args):
 
 
-    project = Path(project)
-
-    output = Path(output)
+    project = Path(
+        args.project
+    )
 
 
     if not project.exists():
 
         print(
-            f"ERROR: Project not found: {project}"
+
+            "ERROR: Project folder not found"
+
         )
 
         sys.exit(1)
 
 
 
-    print(
-        "[1/3] Building EPUB..."
-    )
-
-
-    builder = EPUBBuilder(
+    pipeline = DeluxePipeline(
 
         project,
 
-        output
+        args.output
 
     )
 
 
-    result = builder.build()
+    try:
+
+        result = pipeline.run(
+
+            theme=args.theme
+
+        )
 
 
-    print(
+        print()
 
-        f"Created: {result}"
+        print(
+            "SUCCESS:"
+        )
 
-    )
+        print(
+            result
+        )
 
 
 
-    if validate:
+    except Exception as error:
+
+
+        print()
+
+        print(
+            "BUILD FAILED"
+        )
 
 
         print(
-            "[2/3] Validating..."
+            error
         )
 
 
-        validator = EPUBValidator(
-
-            builder.temp_dir
-
-        )
+        sys.exit(2)
 
 
-        report = validator.validate()
-
-
-
-        if not report["valid"]:
-
-
-            print(
-                "Validation FAILED"
-            )
-
-
-            for error in report["errors"]:
-
-                print(
-                    " -",
-                    error
-                )
-
-
-            sys.exit(2)
-
-
-
-        else:
-
-            print(
-                "Validation PASSED"
-            )
-
-
-
-    print(
-
-        "[3/3] Done."
-
-    )
 
 
 
 def main():
 
-    print_banner()
+
+    banner()
+
 
 
     parser = argparse.ArgumentParser(
@@ -144,14 +119,16 @@ def main():
     )
 
 
+
     parser.add_argument(
 
         "project",
 
         help=
-        "EPUB project folder"
+        "Book project directory"
 
     )
+
 
 
     parser.add_argument(
@@ -161,25 +138,41 @@ def main():
         "--output",
 
         default=
-        "output.epub",
+        "deluxe_book.epub",
 
         help=
-        "Output EPUB filename"
+        "Output EPUB file"
 
     )
+
 
 
     parser.add_argument(
 
-        "--no-validate",
+        "--theme",
 
-        action=
-        "store_true",
+        default=
+        "classic",
+
+        choices=[
+
+            "classic",
+
+            "modern",
+
+            "dark",
+
+            "sepia",
+
+            "manga"
+
+        ],
 
         help=
-        "Disable validation"
+        "Reading theme"
 
     )
+
 
 
     parser.add_argument(
@@ -195,19 +188,14 @@ def main():
     )
 
 
+
     args = parser.parse_args()
 
 
 
-    build_epub(
+    run_build(args)
 
-        args.project,
 
-        args.output,
-
-        not args.no_validate
-
-    )
 
 
 
