@@ -13,7 +13,11 @@ from core.pipeline import (
 
 
 
-VERSION = "2.0.0"
+# Use package VERSION as single source of truth
+try:
+    from epub_deluxe import VERSION
+except Exception:
+    VERSION = "0.0.0"
 
 
 
@@ -25,10 +29,10 @@ r"""
 
         EPUB DELUXE BUILDER
 
-              v2.0.0
+              v%s
 
 ====================================
-"""
+""" % VERSION
     )
 
 
