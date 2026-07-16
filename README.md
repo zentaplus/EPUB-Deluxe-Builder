@@ -1,346 +1,334 @@
-# 📚 EPUB Deluxe Builder Pro
+# EPUB-Deluxe-Builder
 
-> Professional EPUB 3 Generator for TXT, ZIP, DOCX and HTML.
+Professional EPUB 3 Publishing Engine
 
-Create beautiful, commercial-quality EPUB books optimized for:
+Version: 1.0.0
 
-- 🍎 Apple Books
-- 📖 Kobo
-- 📚 Google Play Books
-- 🌙 Moon+ Reader
-- 📱 ReadEra
-- 🔥 FBReader
-- 📘 PocketBook
+## Giới thiệu
 
----
+EPUB-Deluxe-Builder là công cụ xây dựng EPUB 3 tự động, hỗ trợ từ tạo sách đơn giản đến quy trình xuất bản chuyên nghiệp.
 
-## ✨ Features
+Tính năng:
 
-### 📖 EPUB 3
-
-- EPUB 3 compliant
-- Navigation Document (nav.xhtml)
-- toc.ncx
-- Optimized package.opf
-- Valid XHTML5
-
----
-
-### 📄 Input
-
-Supported formats:
-
-- TXT
-- ZIP (contains TXT)
-- DOCX *(planned)*
-- HTML *(planned)*
-- Markdown *(planned)*
-
-Automatic encoding detection:
-
-- UTF-8
-- UTF-8 BOM
-- UTF-16
-- GB18030
-- GBK
-- Big5
-- CP1258
+* EPUB 3 Generator
+* Metadata OPF
+* Automatic Manifest
+* Navigation TOC
+* Cover Generator
+* Font Embedding
+* Typography Engine
+* Image Optimization
+* Reading Themes
+* Kindle Compatibility Check
+* Audiobook Media Overlay
+* Search Index
+* Release Packaging
 
 ---
 
-### 🧹 Smart Cleaner
+# Installation
 
-Automatically removes:
+## Yêu cầu
 
-- Advertisements
-- Watermarks
-- Duplicate blank lines
-- Website URLs
-- Reading platform signatures
+* Python >= 3.10
 
-Normalize:
+Cài đặt:
 
-- Spaces
-- Paragraphs
-- Unicode text
-
----
-
-### 📚 Smart Chapter Detection
-
-Automatically detects chapters like:
-
-```
-Chapter 1
-
-Chapter 20
-
-Chương 1
-
-Chương 99
-
-第1章
-
-第八十章
-
-Thứ 73 chương
+```bash
+pip install .
 ```
 
-Custom chapter patterns will be supported.
+Kiểm tra:
 
----
-
-### 🎨 Deluxe Layout
-
-Professional typography:
-
-- Justified text
-- First line indent
-- Comfortable line spacing
-- Beautiful chapter titles
-- Responsive images
-- Dark mode friendly
-
----
-
-### 🖼 Cover
-
-Supports:
-
-- JPG
-- PNG
-
-Automatically:
-
-- Resize
-- Optimize
-- Convert to JPEG
-- Apple Books compatible
-
----
-
-### 📑 Metadata
-
-Automatically generates:
-
-- Title
-- Author
-- Publisher
-- Language
-- UUID
-- Modified date
-- Identifier
-
----
-
-### 📖 Table of Contents
-
-Generate:
-
-- nav.xhtml
-- toc.ncx
-
-Automatic navigation.
-
----
-
-### ⚡ Batch Convert *(planned)*
-
-Convert:
-
+```bash
+epub-deluxe version
 ```
-100 TXT
+
+---
+
+# Quick Start
+
+Tạo project:
+
+```text
+MyBook/
+
+├── book.json
+└── content/
+
+    └── chapters/
+
+        ├── 001.xhtml
+        └── 002.xhtml
+```
+
+Build EPUB:
+
+```bash
+epub-deluxe build MyBook
+```
+
+Xuất file:
+
+```text
+book.epub
+```
+
+---
+
+# Configuration
+
+File:
+
+```text
+book.json
+```
+
+Ví dụ:
+
+```json
+{
+"title":"Pháp Sư Phía Trên",
+
+"author":"Author",
+
+"language":"vi",
+
+"publisher":"EPUB Deluxe",
+
+"description":"Fantasy novel",
+
+"keywords":[
+"magic",
+"fantasy"
+],
+
+"series":"Novel Series"
+}
+```
+
+---
+
+# Themes
+
+Hỗ trợ:
+
+## Classic
+
+```bash
+--theme classic
+```
+
+Phong cách sách giấy.
+
+## Modern
+
+```bash
+--theme modern
+```
+
+Giao diện tối giản.
+
+## Dark
+
+```bash
+--theme dark
+```
+
+Đọc ban đêm.
+
+## Sepia
+
+```bash
+--theme sepia
+```
+
+Giảm mỏi mắt.
+
+## Manga
+
+```bash
+--theme manga
+```
+
+Tối ưu truyện tranh.
+
+---
+
+# CLI Usage
+
+Build:
+
+```bash
+epub-deluxe build MyBook
+```
+
+Chọn output:
+
+```bash
+epub-deluxe build MyBook \
+-o Novel.epub
+```
+
+Chọn theme:
+
+```bash
+epub-deluxe build MyBook \
+--theme dark
+```
+
+---
+
+# Architecture
+
+```text
+EPUB-Deluxe-Builder
+
+├── core
+
+│   ├── builder.py
+│   ├── metadata.py
+│   ├── manifest.py
+│   ├── toc.py
+│   ├── validator.py
+│   └── pipeline.py
+
+
+├── features
+
+│   ├── chapter.py
+│   ├── cover.py
+│   ├── typography.py
+│   ├── image_opt.py
+│   ├── kindle.py
+│   └── theme.py
+
+
+├── pro
+
+│   ├── epubcheck.py
+│   ├── metadata_ai.py
+│   ├── toc_advanced.py
+│   ├── search_index.py
+│   ├── audiobook.py
+│   └── packaging.py
+
+
+├── tests
+
+├── epub_deluxe
+
+└── build.py
+```
+
+---
+
+# Developer Guide
+
+Chạy test:
+
+```bash
+pytest tests/
+```
+
+Build thủ công:
+
+```python
+from core.pipeline import DeluxePipeline
+
+
+pipeline = DeluxePipeline(
+    "MyBook",
+    "output.epub"
+)
+
+
+pipeline.run(
+    theme="classic"
+)
+```
+
+---
+
+# EPUB Pipeline
+
+```text
+Source Book
 
 ↓
 
-100 EPUB
+Chapter Processing
+
+↓
+
+Cover Generation
+
+↓
+
+Image Optimization
+
+↓
+
+Typography
+
+↓
+
+Theme
+
+↓
+
+Metadata
+
+↓
+
+Manifest
+
+↓
+
+TOC
+
+↓
+
+Validation
+
+↓
+
+EPUB Release
 ```
 
 ---
 
-### 🖥 GUI *(planned)*
+# Release
 
-Modern desktop application.
+## Version 1.0.0
 
-- Drag & Drop
-- Progress Bar
-- Dark Mode
-- Batch Processing
+Included:
 
----
-
-## 📂 Project Structure
-
-```
-EPUB-Deluxe-Builder/
-
-├── main.py
-
-├── requirements.txt
-
-├── README.md
-
-├── build.bat
-
-│
-
-├── core/
-
-│   ├── builder.py
-
-│   ├── cleaner.py
-
-│   ├── chapter_parser.py
-
-│   ├── cover.py
-
-│   ├── css.py
-
-│   ├── metadata.py
-
-│   ├── toc.py
-
-│   └── utils.py
-
-│
-
-├── gui/
-
-│   ├── app.py
-
-│   ├── dialogs.py
-
-│   └── widgets.py
-
-│
-
-├── resources/
-
-│   ├── icon.ico
-
-│   ├── style.css
-
-│   └── default_cover.jpg
-
-│
-
-└── output/
-```
+* EPUB 3 engine
+* Deluxe formatting
+* Kindle support
+* Audiobook support
+* Publishing tools
 
 ---
 
-## 🚀 Installation
-
-Clone repository:
-
-```bash
-git clone https://github.com/<your-account>/EPUB-Deluxe-Builder.git
-
-cd EPUB-Deluxe-Builder
-```
-
-Install dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
-Run:
-
-```bash
-python main.py
-```
-
----
-
-## 📦 Build EXE
-
-```bash
-pyinstaller --onefile --windowed main.py
-```
-
----
-
-## 🎯 Roadmap
-
-### Version 0.1
-
-- [x] TXT Reader
-- [x] EPUB Generator
-- [x] Cover
-- [x] TOC
-- [x] Metadata
-
----
-
-### Version 0.2
-
-- [ ] ZIP Support
-- [ ] Better Cleaner
-- [ ] Better CSS
-- [ ] Apple Books Optimization
-
----
-
-### Version 0.3
-
-- [ ] DOCX Import
-- [ ] HTML Import
-- [ ] Markdown Import
-
----
-
-### Version 0.4
-
-- [ ] Batch Convert
-- [ ] GUI
-- [ ] Settings
-
----
-
-### Version 1.0
-
-- [ ] Stable Release
-- [ ] Windows Installer
-- [ ] Auto Update
-
----
-
-## 🛠 Technologies
-
-- Python 3.11+
-- EbookLib
-- Pillow
-- BeautifulSoup4
-- lxml
-- charset-normalizer
-
----
-
-## 📜 License
+# License
 
 MIT License
 
 ---
 
-## ❤️ Acknowledgements
+# Contributing
 
-Built with:
+1. Fork repository
 
-- EbookLib
-- Pillow
-- Python Community
+2. Create feature branch
 
----
+3. Add tests
 
-## 🤝 Contributions
-
-Pull requests are welcome.
-
-For major changes, please open an issue first to discuss your proposal.
+4. Submit Pull Request
 
 ---
 
-## ⭐ Support
-
-If this project helps you, please consider giving it a ⭐ on GitHub.
+EPUB-Deluxe-Builder
+Build better EPUB books.
