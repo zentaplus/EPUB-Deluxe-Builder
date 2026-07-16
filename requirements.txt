@@ -1,0 +1,16 @@
+# ==========================================
+# EPUB Deluxe Builder Pro
+# Dependencies
+# ==========================================
+
+ebooklib>=0.18
+
+Pillow>=11.0.0
+
+beautifulsoup4>=4.12.3
+
+lxml>=5.2.2
+
+charset-normalizer>=3.3.2
+
+regex>=2024.11.6
